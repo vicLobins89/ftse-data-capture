@@ -1,14 +1,23 @@
+<?php $options = get_option('rh_settings'); ?>
 <div id="register-form" class="page_textbox">
 	<div class="panel-grid-cell">
 		<div class="textwidget">
-			<div class="logo"><img src="https://ftsewomenleaders.com/wp-content/uploads/2017/04/ftse-women-leaders-logo.png" alt="Hampton Alexander Review" /></div>
+			<div class="logo">
+				<?php
+				if($options['logo']){
+					echo '<img src="'. $options['logo'] .'" alt="'. get_bloginfo('name') .'" />';
+				} else {
+					echo '<img src="/wp-content/uploads/2017/04/ftse-women-leaders-logo.png" alt="Hampton Alexander Review" />';
+				}
+				?>
+			</div>
 			
 			<h1 class="survey-title">FTSE 350 Gender Data Submission Portal</h1>
 			
 			<p class="intro">Stage 1 – Register your Company</p>
 			<p style="max-width: 550px; margin: 0 auto 30px;">
-				<strong>This page is only to be completed by companies submitting their gender data for the first time.</strong>
-				<br/>
+				<strong>This page is only to be completed by companies registering for the first time.</strong>
+				<br/><br/>
 				Please complete the details below to register your company and provide appropriate contact details. This will allow you to submit your company’s gender data, ensure we have the correct details to advise when the online tool is open to submit gender data or get in touch with any subsequent queries.
 			</p>
 			
@@ -59,20 +68,26 @@
 					</p>
 
 					<p class="form-row">
-						<label for="email"><?php _e( 'Contact Email', 'ftse-data-capture' ); ?><strong>*</strong></label>
-						<input type="text" name="email" id="email" autocomplete="off" placeholder="<?php _e( 'Contact Email', 'ftse-data-capture' ); ?>">
+						<label for="email"><?php _e( 'Work Email', 'ftse-data-capture' ); ?><strong>*</strong></label>
+						<input type="text" name="email" id="email" autocomplete="off" placeholder="<?php _e( 'Work Email', 'ftse-data-capture' ); ?>">
 						<span class="error_msg"></span>
 					</p>
 
 					<p class="form-row">
-						<label for="email2"><?php _e( 'Confirm Contact Email', 'ftse-data-capture' ); ?><strong>*</strong></label>
-						<input type="text" name="email2" id="email2" autocomplete="off" placeholder="<?php _e( 'Confirm Contact Email', 'ftse-data-capture' ); ?>">
+						<label for="email2"><?php _e( 'Confirm Work Email', 'ftse-data-capture' ); ?><strong>*</strong></label>
+						<input type="text" name="email2" id="email2" autocomplete="off" placeholder="<?php _e( 'Confirm Work Email', 'ftse-data-capture' ); ?>">
 						<span class="error_msg"></span>
 					</p>
 
 					<p class="form-row">
-						<label for="contact_phone"><?php _e( 'Work Contact Number', 'ftse-data-capture' ); ?></label>
-						<input type="text" name="contact_phone" id="contact-phone" placeholder="<?php _e( 'Work Contact Number', 'ftse-data-capture' ); ?>">
+						<label for="contact_phone"><?php _e( 'Work Landline Number', 'ftse-data-capture' ); ?></label>
+						<input type="text" name="contact_phone" id="contact-phone" placeholder="<?php _e( 'Work Landline Number', 'ftse-data-capture' ); ?>">
+						<span class="error_msg"></span>
+					</p>
+
+					<p class="form-row">
+						<label for="mobile_phone"><?php _e( 'Work Mobile Number', 'ftse-data-capture' ); ?></label>
+						<input type="text" name="mobile_phone" id="mobile-phone" placeholder="<?php _e( 'Work Mobile Number', 'ftse-data-capture' ); ?>">
 						<span class="error_msg"></span>
 					</p>
 

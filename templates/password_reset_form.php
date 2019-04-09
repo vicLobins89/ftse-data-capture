@@ -1,84 +1,16 @@
-<script type="text/javascript">
-$(document).ready(function() {	
-	var emptyFields = true;
-	var passCheck = false;
-	var passStr = false;
-
-	$('input').on('keyup blur', function(){
-		var inputVal = $(this).val();
-
-		if( inputVal.length == 0 ) {
-			$(this).addClass('fail');
-		} else {
-			$(this).removeClass('fail');
-			$(this).next('.error_msg').text('');
-		}
-
-		if( $(this).is('#pass1') ) {
-			function hasNumber(myString) {
-			  return /\d/.test(myString);
-			}
-			
-			if( $('#pass2').val() == inputVal ) {
-				$(this).next('.error_msg').text('');
-				passCheck = true;
-			} else {
-				$(this).next('.error_msg').text("Passwords don't match");
-				passCheck = false;
-			}
-			
-			if( inputVal.length >= 7 && /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+)$/.test(inputVal) ) {
-				$(this).next('.error_msg').text('');
-				passStr = true;
-			} else {
-				$(this).next('.error_msg').text('Make sure your password meets the minimum requirements');
-				passStr = false;
-			}
-		}
-
-		if( $(this).is('#pass2') ) {
-			if( $('#pass1').val() == inputVal ) {
-				$(this).next('.error_msg').text('');
-				passCheck = true;
-			} else {
-				$(this).next('.error_msg').text("Passwords don't match");
-				passCheck = false;
-			}
-		}
-
-		var empty = $('input').filter(function() {
-			return this.value === "";
-		});
-
-		if(empty.length) {
-			emptyFields = true;
-		} else {
-			emptyFields = false;
-		}
-	});
-
-	$('input').on('keyup blur', function(){
-		if( !emptyFields && passCheck && passStr ) {
-			$('#resetpass-button').prop('disabled', false);
-		} else {
-			$('#resetpass-button').prop('disabled', true);
-		}
-	});
-	
-	$('input').addClass('fail');
-	
-	$('.overlay').click(function(){
-		$('.fail:not(#disclaimer, #company-name)').siblings('.error_msg').text(errorMessages.empty);
-		if( !$('input#disclaimer').is(':checked') ) $('#disclaimer').siblings('.error_msg').text(errorMessages.disclaimer);
-		if( $("#company-name").val() == 'Company Name' || $("#company-name").val() == '' ) $('#company-name').siblings('.error_msg').text(errorMessages.company);
-	});
-});
-</script>
-
+<?php $options = get_option('rh_settings'); ?>
 <div id="password-reset-form" class="page_textbox">
 	<div class="panel-grid-cell">
 		<div class="textwidget">
-			<div class="logo"><img src="/wp-content/uploads/2017/04/ftse-women-leaders-logo.png" alt="Hampton Alexander Review" /></div>
+			<div class="logo">
+				<?php
+				if($options['logo']){
+					echo '<img src="'. $options['logo'] .'" alt="'. get_bloginfo('name') .'" />';
+				} else {
+					echo '<img src="/wp-content/uploads/2017/04/ftse-women-leaders-logo.png" alt="Hampton Alexander Review" />';
+				}
+				?>
+			</div>
 			
 			<h1 class="survey-title">FTSE 350 Gender Data Submission Portal</h1>
 			
