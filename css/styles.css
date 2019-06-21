@@ -1,3 +1,11 @@
+.warning {
+	color: red;
+    max-width: 70%;
+    margin: 1rem auto;
+    text-align: center;
+    font-weight: bold;
+}
+
 .page_textbox .panel-grid-cell {
     margin: 0 auto;
     max-width: 900px;
@@ -27,6 +35,10 @@
 
 .download-btn {
 	width: 100%;
+}
+
+.tabbed-content h4 {
+	color: #000;
 }
 
 #register-form .survey-title,
@@ -273,12 +285,17 @@ input.select2-search__field {
 	float: right;
 }
 
+.submit-wrap .trigger,
 .submit-wrap .overlay-two,
 .submit-wrap .overlay {
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	cursor: pointer;
+}
+
+.submit-wrap .trigger {
+	z-index: 9999;
 }
 
 .submit-wrap .overlay-two:hover + input {
@@ -353,6 +370,7 @@ input[name="submitBtn2"] {
 .register-error,
 .login-error,
 .error_msg {
+	margin: 0 0 10px;
 	color: red;
 	text-align: center;
 }
@@ -506,6 +524,7 @@ p.description {
 .data-columns .section-wrapper.locked {
 	margin-left: 0;
 	margin-right: 0;
+	border: none;
 }
 
 .data-columns .section-wrapper.top {
@@ -853,14 +872,6 @@ p.description {
 .row.sub-section {
 	padding-left: 1rem;
 	vertical-align: top;
-}
-
-.row.sub-section.b {
-	margin-top: 2rem;
-}
-
-.row.sub-section.b + .row {
-	padding-left: 2.2rem;
 }
 
 .row .col {

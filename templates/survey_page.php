@@ -163,12 +163,13 @@ $options = get_option('rh_settings');
 			
 			<h2>Submitting your Data</h2>
 			
-			<p>Please read the guidance provided in the <a href="/faqs/" target="_blank">FAQs</a> before completing and if you have further questions please contact the team at <a href="mailto:nfo@ftsewomenleaders.com">info@ftsewomenleaders.com</a>.
-			<br><br>
-			We would like data on the number of men and women on both the Executive Committee and Direct Reports to the Executive Committee as at 30 June <?php echo $year; ?> and the turnover (total number of men and women who have left and/or joined between 1 July <?php echo $year-1; ?> and 30 June <?php echo $year; ?>). 
-			<br><br>
-			This online form will be open for companies to submit their gender data from <strong>Friday 28 June until Wednesday 31 July <?php echo $year; ?>.</strong>
-			</p>
+			<p>Please read the guidance provided in the <a href="http://ftsewomenleaders.com/faqs" target="_blank">FAQ’s</a> before completing and if you have further questions please contact the team at <a href="mailto:info@ftsewomenleaders.com.">info@ftsewomenleaders.com.</a></p>
+			
+			<p>This online form will be open for companies to submit their gender data from Monday 1 July until Wednesday 31 July 2019.</p>
+			
+			<p><strong>Sections 1 and 2:</strong> We would like data on the number of men and women on both the Executive Committee and Direct Reports to the Executive Committee as at 30 June 2019 and the turnover (total number of men and women who have left and/or joined between 1 July 2018 and 30 June 2019).</p>
+			
+			<p><strong>Section 3:</strong> We would like data on the gender and name of the holders of key functional roles as set out below. The purpose of this data is to provide better understanding of the gender balance in key functional roles.</p>
 			
 			<div class="tab">
 				<button class="tablinks" onclick="openTab(event, 'tab<?php echo $year ;?>')" id="defaultOpen"><?php echo $year ;?></button>
@@ -193,7 +194,7 @@ $options = get_option('rh_settings');
 						</div>
 						
 						<?php if($currentData->locked == 0) : ?>
-						<p>
+						<p style="font-style: italic;">
 							<strong>You will not be able to amend previous years data.</strong>
 							<br>
 							<strong>Use whole numbers and use 0 (zero) where applicable.</strong>
@@ -203,7 +204,7 @@ $options = get_option('rh_settings');
 						<br>
 						<?php endif; ?>
 						
-						<div class="section-wrapper top">
+						<div class="section-wrapper top locked">
 							<!-- SECTION 1 -->
 							
 							<h4><strong>Section 1</strong></h4>
@@ -222,8 +223,8 @@ $options = get_option('rh_settings');
 								
 								<div class="cf row row-2">
 									<div class="col col-info">
-										Executive Committee members* at the start of the year 1 July <?php echo $year-1; ?>*<br>
-										<em>*Please read the <a href="/faqs/" target="_blank">FAQs</a> for guidance on Executive Committee members</em>
+										Executive Committee members* at the start of the year 1 July <?php echo $year-1; ?><br>
+										<em>*Excludes administrative and support staff</em>
 									</div>
 									
 									<div class="col col-num">
@@ -244,7 +245,7 @@ $options = get_option('rh_settings');
 								
 								<div class="cf row row-3">
 									<div class="col col-info">
-										Executive Committee members that left in the year to 30 June <?php echo $year; ?> <span class="tooltip">i<span class="tooltiptext"><strong>Note:</strong> When calculating leavers, include all internal moves e.g. due to promotion/sideways move/demotions etc. and all external moves e.g. due to retirement/redundancies.</span></span>
+										Executive Committee members that left in the year to 30 June <?php echo $year; ?> <span class="tooltip">i<span class="tooltiptext"><strong>Note:</strong> When calculating leavers, include all internal moves due to promotion/sideways move/demotions and all external moves due to resignations/retirement/redundancies.</span></span>
 									</div>
 									
 									<div class="col col-num">
@@ -263,7 +264,7 @@ $options = get_option('rh_settings');
 								
 								<div class="cf row row-4">
 									<div class="col col-info">
-										Executive Committee members that joined in the year to 30 June <?php echo $year; ?> <span class="tooltip">i<span class="tooltiptext"><strong>Note:</strong> When calculating joiners, include all internal moves e.g. promotion/sideways move/demotions etc. and all external recruitment hires.</span></span>
+										Executive Committee members that joined in the year to 30 June <?php echo $year; ?> <span class="tooltip">i<span class="tooltiptext"><strong>Note:</strong> When calculating joiners, include all internal moves due to promotion/sideways move/demotions and all external recruitment hires.</span></span>
 									</div>
 									
 									<div class="col col-num">
@@ -300,14 +301,10 @@ $options = get_option('rh_settings');
 										<input type="number" min="0" max="300" name="repExecTotal" id="repExecTotal" readonly="readonly" value="<?php echo $currentData->repExecTotal; ?>" />
 									</div>
 								</div>
-								
-								<div class="error_msg execCalc">Please make sure the total number of Executive Committee members add up.</div>
-								<div class="error_msg menExecCalc">Please make sure Executive Committee Turnover (Men) adds up.</div>
-								<div class="error_msg womenExecCalc">Please make sure Executive Committee Turnover (Women) adds up.</div>
 							</div>
 						</div>
 						
-						<div class="section-wrapper">
+						<div class="section-wrapper locked">
 							<!-- SECTION 2 -->
 							
 							<h4><strong>Section 2</strong></h4>
@@ -316,7 +313,7 @@ $options = get_option('rh_settings');
 								<div class="cf row row-1">
 									<div class="col col-info">
 										<h5>
-											<b>Direct Reports to the Executive Committee<br>(excluding administrative and support staff)</b>
+											<b>Direct Reports to the Executive Committee</b>
 										</h5>
 									</div>
 									<div class="col col-num" style="text-align: left;">Men</div>
@@ -326,7 +323,7 @@ $options = get_option('rh_settings');
 								
 								<div class="cf row row-2">
 									<div class="col col-info">
-										Direct Reports at the start of the year 1 July <?php echo $year-1; ?>*<br>
+										Direct Reports* at the start of the year 1 July <?php echo $year-1; ?><br>
 										<em>*Excludes administrative and support staff</em>
 									</div>
 									
@@ -348,7 +345,7 @@ $options = get_option('rh_settings');
 								
 								<div class="cf row row-3">
 									<div class="col col-info">
-										Direct Reports that left in the year to 30 June <?php echo $year; ?> <span class="tooltip">i<span class="tooltiptext"><strong>Note:</strong> When calculating leavers, include all internal moves e.g. due to promotion/sideways move/demotions etc. and all external moves e.g. due to retirement/redundancies.</span></span>
+										Direct Reports that left in the year to 30 June <?php echo $year; ?> <span class="tooltip">i<span class="tooltiptext"><strong>Note:</strong> When calculating leavers, include all internal moves due to promotion/sideways move/demotions and all external moves due to resignations/retirement/redundancies.</span></span>
 									</div>
 									
 									<div class="col col-num">
@@ -367,7 +364,7 @@ $options = get_option('rh_settings');
 								
 								<div class="cf row row-4">
 									<div class="col col-info">
-										Direct Reports that joined in the year to 30 June <?php echo $year; ?> <span class="tooltip">i<span class="tooltiptext"><strong>Note:</strong> When calculating joiners, include all internal moves e.g. promotion/sideways move/demotions etc. and all external recruitment hires.</span></span>
+										Direct Reports that joined in the year to 30 June <?php echo $year; ?> <span class="tooltip">i<span class="tooltiptext"><strong>Note:</strong> When calculating joiners, include all internal moves due to promotion/sideways move/demotions and all external recruitment hires.</span></span>
 									</div>
 									
 									<div class="col col-num">
@@ -404,14 +401,10 @@ $options = get_option('rh_settings');
 										<input type="number" min="0" max="300" name="repDirectTotal" id="repDirectTotal" readonly="readonly" value="<?php echo $currentData->repDirectTotal; ?>" />
 									</div>
 								</div>
-								
-								<div class="error_msg dirCalc">Please make sure the total number of Direct Reports add up.</div>
-								<div class="error_msg menDirCalc">Please make sure Direct Reports Turnover (Men) adds up.</div>
-								<div class="error_msg womenDirCalc">Please make sure Direct Reports Turnover (Women) adds up.</div>
 							</div>
 						</div>
 						
-						<div class="section-wrapper">
+						<div class="section-wrapper locked">
 							<!-- SECTION 3 -->
 							
 							<h4><strong>Section 3</strong></h4>
@@ -420,22 +413,28 @@ $options = get_option('rh_settings');
 								<div class="cf row row-1">
 									<div class="col">
 										<h5>
-											<b>This year we are collecting additional gender data on key functional roles. Please complete the following:</b>
+											<b>Functional Roles</b>
 										</h5>
 									</div>
 								</div>
 								
 								<div class="cf row">
+									<div class="col col-info" style="width: 100%;">
+										Please provide the gender and name of holders of key functional roles below:
+									</div>
+								</div>
+								
+								<div class="cf row">
 									<div class="col col-info">
-										<strong>1.</strong> The senior executive responsible for leading people:
+										<strong>1.</strong> Human Resources Director (HRD) or most senior executive responsible for people and talent management
 									</div>
 									
 									<div class="col">
 										<p>Gender: </p>
 										<select name="leadingExec" id="leadingExec">
 											<option value="">Please Select</option>
-											<option <?php if ($currentData->leadingExec == 'Male') echo 'selected' ; ?> value="Male">Male</option>
-											<option  <?php if ($currentData->leadingExec == 'Female') echo 'selected' ; ?> value="Female">Female</option>
+											<option <?php if ($currentData->leadingExec == 'Man') echo 'selected' ; ?> value="Man">Man</option>
+											<option  <?php if ($currentData->leadingExec == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
 										<br>
 										<p>Name: </p>
@@ -445,21 +444,39 @@ $options = get_option('rh_settings');
 								
 								<div class="cf row">
 									<div class="col col-info">
-										<strong>2.</strong> Please answer (a) or (b)
+										<strong>2.</strong> Chief Information Officer (CIO) or most senior executive responsible for systems and technology
+									</div>
+									
+									<div class="col">
+										<p>Gender: </p>
+										<select name="seniorInfoTech" id="seniorInfoTech">
+											<option value="">Please Select</option>
+											<option <?php if ($currentData->seniorInfoTech == 'Man') echo 'selected' ; ?> value="Man">Man</option>
+											<option  <?php if ($currentData->seniorInfoTech == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
+										</select>
+										<br>
+										<p>Name: </p>
+										<input class="names" type="text" name="seniorInfoTechName" id="seniorInfoTechName" value="<?php echo $currentData->seniorInfoTechName; ?>" />
 									</div>
 								</div>
 								
-								<div class="cf row sub-section">
+								<div class="cf row">
 									<div class="col col-info">
-										<strong>(a)</strong> Company Group Counsel and Company Secretary <br>(where this is a combined role):
+										<strong>3.</strong> Please answer only (a) where this a combined role or (b) where these are separate roles
+									</div>
+								</div>
+								
+								<div class="cf row sub-section a">
+									<div class="col col-info">
+										<strong>(a)</strong> Group Counsel and Company Secretary
 									</div>
 									
 									<div class="col">
 										<p>Gender: </p>
 										<select name="gcSecCombined" id="gcSecCombined">
 											<option value="">Please Select</option>
-											<option <?php if ($currentData->gcSecCombined == 'Male') echo 'selected' ; ?> value="Male">Male</option>
-											<option <?php if ($currentData->gcSecCombined == 'Female') echo 'selected' ; ?> value="Female">Female</option>
+											<option <?php if ($currentData->gcSecCombined == 'Man') echo 'selected' ; ?> value="Man">Man</option>
+											<option <?php if ($currentData->gcSecCombined == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
 										<br>
 										<p>Name: </p>
@@ -469,55 +486,41 @@ $options = get_option('rh_settings');
 								
 								<div class="cf row sub-section b">
 									<div class="col col-info">
-										<strong>(b)</strong> Company head of legal:
+										<strong>(b)</strong> Group Counsel
 									</div>
 									
 									<div class="col">
 										<p>Gender: </p>
 										<select name="headOfLegal" id="headOfLegal">
 											<option value="">Please Select</option>
-											<option <?php if ($currentData->headOfLegal == 'Male') echo 'selected' ; ?> value="Male">Male</option>
-											<option <?php if ($currentData->headOfLegal == 'Female') echo 'selected' ; ?> value="Female">Female</option>
+											<option <?php if ($currentData->headOfLegal == 'Man') echo 'selected' ; ?> value="Man">Man</option>
+											<option <?php if ($currentData->headOfLegal == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
 										<br>
 										<p>Name: </p>
 										<input class="names" type="text" name="headOfLegalName" id="headOfLegalName" value="<?php echo $currentData->headOfLegalName; ?>" />
 									</div>
+									
+									<div class="col col-info" style="padding: 0 0 0 2.1rem;">
+										<strong>and</strong>
+									</div>
 								</div>
 								
-								<div class="cf row sub-section">
-									<div class="col col-info">
-										Company Secretary:
+								<div class="cf row sub-section c">
+									<div class="col col-info" style="padding: 0 0 0 2.1rem;">
+										Company Secretary
 									</div>
 									
 									<div class="col">
 										<p>Gender: </p>
 										<select name="companySec" id="companySec">
 											<option value="">Please Select</option>
-											<option <?php if ($currentData->companySec == 'Male') echo 'selected' ; ?> value="Male">Male</option>
-											<option <?php if ($currentData->companySec == 'Female') echo 'selected' ; ?> value="Female">Female</option>
+											<option <?php if ($currentData->companySec == 'Man') echo 'selected' ; ?> value="Man">Man</option>
+											<option <?php if ($currentData->companySec == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
 										<br>
 										<p>Name: </p>
 										<input class="names" type="text" name="companySecName" id="companySecName" value="<?php echo $currentData->companySecName; ?>" />
-									</div>
-								</div>
-								
-								<div class="cf row">
-									<div class="col col-info">
-										<strong>3.</strong> The senior executive responsible for technology and information systems:
-									</div>
-									
-									<div class="col">
-										<p>Gender: </p>
-										<select name="seniorInfoTech" id="seniorInfoTech">
-											<option value="">Please Select</option>
-											<option <?php if ($currentData->seniorInfoTech == 'Male') echo 'selected' ; ?> value="Male">Male</option>
-											<option  <?php if ($currentData->seniorInfoTech == 'Female') echo 'selected' ; ?> value="Female">Female</option>
-										</select>
-										<br>
-										<p>Name: </p>
-										<input class="names" type="text" name="seniorInfoTechName" id="seniorInfoTechName" value="<?php echo $currentData->seniorInfoTechName; ?>" />
 									</div>
 								</div>
 							</div>
@@ -527,9 +530,13 @@ $options = get_option('rh_settings');
 						<br>
 						
 						<p class="error_msg neg">Total number of Executive Committee members cannot be less than zero</p>
+						<p class="error_msg zero">Please make sure you complete all required fields in Section 1 and 2</p>
+						<p class="error_msg sec3">Please make sure you complete all required fields in Section 3</p>
+						<p class="error_msg 2ab">Please complete <strong>either</strong> 2(a) or 2(b)</p>
 						<div class="save-wrap"><input type="submit" name="submitBtn1" value="Save only" class="green-button save" /></div>
 						<div class="submit-wrap">
 							<div class="overlay-two"></div>
+							<div class="trigger"></div>
 							<input type="submit" name="submitBtn2" value="Save & Submit" disabled class="green-button submit" />
 						</div>
 						<div class="clearfix"></div>
@@ -742,69 +749,87 @@ $options = get_option('rh_settings');
 							<h4><strong>Section 3</strong></h4>
 							
 							<div class="section three">
-								<div class="cf row row-2">
-									<div class="col col-info" style="vertical-align: top; width: 50%;">
-										<strong>1.</strong> The senior executive responsible for leading people:
+								<div class="cf row row-1">
+									<div class="col">
+										<h5>
+											<b>Functional Roles</b>
+										</h5>
+									</div>
+								</div>
+								
+								<div class="cf row">
+									<div class="col col-info" style="width: 100%;">
+										Please provide the gender and name of holders of key functional roles below:
+									</div>
+								</div>
+								
+								<div class="cf row">
+									<div class="col col-info">
+										<strong>1.</strong> Human Resources Director (HRD) or most senior executive responsible for people and talent management
 									</div>
 									
-									<div class="col" style="width: 50%; text-align: right;">
+									<div class="col">
 										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->leadingExec; ?></p>
 										<br>
 										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->leadingExecName; ?></p>
 									</div>
 								</div>
 								
-								<div class="cf row row-3">
-									<div class="col col-info" style="vertical-align: top;">
-										<strong>2.</strong> Please answer (a) or (b)
+								<div class="cf row">
+									<div class="col col-info">
+										<strong>2.</strong> Chief Information Officer (CIO) or most senior executive responsible for systems and technology
+									</div>
+									
+									<div class="col">
+										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->seniorInfoTech; ?></p>
+										<br>
+										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->seniorInfoTechName; ?></p>
 									</div>
 								</div>
 								
-								<div class="cf row row-4">
-									<div class="col col-info" style="vertical-align: top; padding-left: 30px; width: 50%;">
-										<strong>(a)</strong> Company Group Counsel and Company Secretary <br>(where this is a combined role):
+								<div class="cf row">
+									<div class="col col-info">
+										<strong>3.</strong> Please answer only (a) where this a combined role or (b) where these are separate roles
+									</div>
+								</div>
+								
+								<div class="cf row sub-section a">
+									<div class="col col-info">
+										<strong>(a)</strong> Group Counsel and Company Secretary
 									</div>
 									
-									<div class="col" style="width: 50%; text-align: right;">
+									<div class="col">
 										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->gcSecCombined; ?></p>
 										<br>
 										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->gcSecCombinedName; ?></p>
 									</div>
 								</div>
 								
-								<div class="cf row row-4" style="margin-top: 20px;">
-									<div class="col col-info" style="vertical-align: top; padding-left: 30px; width: 50%;">
-										<strong>(b)</strong> Company head of legal:
+								<div class="cf row sub-section b">
+									<div class="col col-info">
+										<strong>(b)</strong> Group Counsel
 									</div>
 									
-									<div class="col" style="width: 50%; text-align: right;">
+									<div class="col">
 										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->headOfLegal; ?></p>
 										<br>
 										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->headOfLegalName; ?></p>
 									</div>
+									
+									<div class="col col-info" style="padding: 0 0 0 2.1rem;">
+										<strong>and</strong>
+									</div>
 								</div>
 								
-								<div class="cf row row-4">
-									<div class="col col-info" style="vertical-align: top; padding-left: 46px; width: 50%;">
-										Company Secretary:
+								<div class="cf row sub-section c">
+									<div class="col col-info" style="padding: 0 0 0 2.1rem;">
+										Company Secretary
 									</div>
 									
-									<div class="col" style="width: 50%; text-align: right;">
+									<div class="col">
 										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->companySec; ?></p>
 										<br>
 										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->companySecName; ?></p>
-									</div>
-								</div>
-								
-								<div class="cf row row-4">
-									<div class="col col-info" style="vertical-align: top; width: 50%;">
-										<strong>3.</strong> The senior executive responsible for technology and information systems:
-									</div>
-									
-									<div class="col" style="width: 50%; text-align: right;">
-										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->seniorInfoTech; ?></p>
-										<br>
-										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->seniorInfoTechName; ?></p>
 									</div>
 								</div>
 							</div>

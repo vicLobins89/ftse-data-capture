@@ -28,7 +28,7 @@ class PersonalisedUserFlow {
 		add_action( 'wp_logout', array( $this, 'redirect_after_logout' ) );
 		add_action( 'login_form_register', array( $this, 'redirect_to_custom_register' ) );
 		add_action( 'login_form_register', array( $this, 'do_register_user' ) );
-//		add_action( 'wp_print_footer_scripts', array( $this, 'add_captcha_js_to_footer' ) );
+		//add_action( 'wp_print_footer_scripts', array( $this, 'add_captcha_js_to_footer' ) );
 		add_action( 'login_form_lostpassword', array( $this, 'redirect_to_custom_lostpassword' ) );
 		add_action( 'login_form_lostpassword', array( $this, 'do_password_lost' ) );
 		add_action( 'login_form_rp', array( $this, 'redirect_to_custom_password_reset' ) );
@@ -40,6 +40,8 @@ class PersonalisedUserFlow {
 		add_action( 'wp_head', array( $this, 'ftse_enqueue_styles' ) );
 		add_action( 'after_setup_theme', array( $this, 'remove_admin_bar' ) );
 		
+		//add_action('wp_login', array( $this, 'set_user_role'));
+		
 		add_filter( 'authenticate', array( $this, 'maybe_redirect_at_authenticate' ), 101, 3 );
 		add_filter( 'login_redirect', array( $this, 'redirect_after_login' ), 10, 3 );
 		add_filter( 'admin_init', array( $this, 'register_settings_fields' ) );
@@ -47,6 +49,28 @@ class PersonalisedUserFlow {
 		add_filter( 'wp_mail_from', array( $this, 'replace_from_email_address') );
 		add_filter( 'wp_mail_from_name', array( $this, 'replace_from_name') );
 		add_filter( 'wp_mail_content_type', array( $this, 'replace_email_content_type') );
+	}
+	
+	public function set_user_role() {
+		
+		$users = get_users( array(
+			'role__not_in' => array('administrator')
+		) );
+
+		// Define a user role based on its index in the array.
+		$roles = array( 
+			'administrator', 
+			'editor', 
+			'author', 
+			'contributor', 
+			'subscriber',
+			''
+		);
+		$role = $roles[5];
+		
+		foreach($users as $user) {
+			$user->set_role( $role );
+		}
 	}
 	
 	public function register_settings_fields() {
@@ -611,7 +635,7 @@ class PersonalisedUserFlow {
 		
         $message .= __('<b style="font-size: 16px;">Submitting your Data</b>') . "<br><br>";
 		
-        $message .= __('<b style="font-size: 16px;">The Hampton-Alexander portal will be open for companies to submit their data from Friday 28 June until Wednesday 31 July 2018.</b>') . "<br><br>";
+        $message .= __('<b style="font-size: 16px; color: red;">The Hampton-Alexander portal will be open for companies to submit their data from Monday 01 July until Wednesday 31 July 2018.</b>') . "<br><br>";
 		
         $message .= __('You can submit your company’s data by clicking on the link sent to you when you registered or by logging in to the data submission portal via the Hampton-Alexander Review website at ');
         $message .= '<a href="http://ftsewomenleaders.com/">www.ftsewomenleaders.com</a>' . ".<br><br>";
@@ -758,6 +782,7 @@ class PersonalisedUserFlow {
 	
 	public function admin_scripts_styles() {
 		wp_enqueue_style( 'ftse-admin-styles', plugins_url( '/css/admin-styles.css', __FILE__ ) );
+		wp_enqueue_script( 'html2csv', plugins_url( '/js/html2csv.js', __FILE__ ) );
 		wp_enqueue_script( 'ftse-admin-scripts', plugins_url( '/js/admin-scripts.js', __FILE__ ) );
 	}
 	
@@ -836,8 +861,6 @@ $personalised_user_flow = new PersonalisedUserFlow();
 // Register pages on plugin activation
 register_activation_hook( __FILE__, array( 'PersonalisedUserFlow', 'plugin_activated' ) );
 
-
-
 // Admin Functions
 
 add_action( 'show_user_profile', 'ftse_extra_user_profile_fields' );
@@ -909,10 +932,7 @@ function ftse_extra_user_profile_fields( $user ) { ?>
 		</td>
 	</tr>
 </table>
-<?php } ?>
-
-
-<?php
+<?php }
 	
 function ftse_plugin_menu() {
 	add_menu_page('FTSE Data Capture Results', 'FTSE Data', 'administrator', 'ftse-data-capture-results', 'ftse_plugin_settings_page', 'dashicons-editor-ol', 1);
@@ -941,10 +961,11 @@ function ftse_plugin_settings_page() {
 				
 		foreach($ftseIndexes as $ftseIndexNo) {
 			$users = get_users( array(
-				'role' => 'subscriber',
+				'role__not_in' => array('administrator'),
 				'meta_key' => 'ftseIndex',
 				'meta_value' => $ftseIndexNo
 			) );
+			
 			echo '<h3>FTSE '.$ftseIndexNo.'</h3>
 				<a href="#" class="export" data-index="'.$ftseIndexNo.'">Export FTSE '.$ftseIndexNo.' Status into spread sheet</a>
 				<table class="ftseIndex'.$ftseIndexNo.'" width="100%" BORDER=0 CELLPADDING=1 CELLSPACING=0>
@@ -972,16 +993,16 @@ function ftse_plugin_settings_page() {
 					<td>Direct Reports - women</td>
 					<td>Total number of Direct Reports</td>
 					
-					<td>The senior executive responsible for leading people - Gender</td>
-					<td>The senior executive responsible for leading people - Name</td>
-					<td>Company Group Counsel and Company Secretary - Gender</td>
-					<td>Company Group Counsel and Company Secretary - Name</td>
-					<td>Company head of legal - Gender</td>
-					<td>Company head of legal - Name</td>
+					<td>Human Resources Director (HRD) - Gender</td>
+					<td>Human Resources Director (HRD) - Name</td>
+					<td>Chief Information Officer (CIO) - Gender</td>
+					<td>Chief Information Officer (CIO) - Name</td>
+					<td>Group Counsel and Company Secretary - Gender</td>
+					<td>Group Counsel and Company Secretary - Name</td>
+					<td>Group Counsel - Gender</td>
+					<td>Group Counsel - Name</td>
 					<td>Company Secretary - Gender</td>
 					<td>Company Secretary - Name</td>
-					<td>The senior executive responsible for technology and information systems - Gender</td>
-					<td>The senior executive responsible for technology and information systems - Name</td>
 
 					<td class="export">User</td>
 					<td class="export">Email</td>
@@ -1040,14 +1061,14 @@ function ftse_plugin_settings_page() {
 					
 					<td>'.$surveyData->leadingExec.'</td>
 					<td>'.$surveyData->leadingExecName.'</td>
+					<td>'.$surveyData->seniorInfoTech.'</td>
+					<td>'.$surveyData->seniorInfoTechName.'</td>
 					<td>'.$surveyData->gcSecCombined.'</td>
 					<td>'.$surveyData->gcSecCombinedName.'</td>
 					<td>'.$surveyData->headOfLegal.'</td>
 					<td>'.$surveyData->headOfLegalName.'</td>
 					<td>'.$surveyData->companySec.'</td>
 					<td>'.$surveyData->companySecName.'</td>
-					<td>'.$surveyData->seniorInfoTech.'</td>
-					<td>'.$surveyData->seniorInfoTechName.'</td>
 
 					<td class="export">'.$user->first_name.' '.$user->last_name.'</td>
 					<td class="export">'.( !$surveyData->contact_email ? $user->user_email : $surveyData->contact_email ).'</td>
@@ -1059,177 +1080,11 @@ function ftse_plugin_settings_page() {
 					<td>'.$invTrust.'</td>
 				</tr>';
 			}
-
 			echo '</tbody></table>';
 		}
-		
 		echo '</div>'; //.year-tab
 	}
-		
 	echo '</div>'; //.wrap
 }
-
 add_action('admin_menu', 'ftse_plugin_menu');
-
-
-
-
-
-
-
-
-// Page Templater
-class PageTemplater {
-
-	/**
-	 * A reference to an instance of this class.
-	 */
-	private static $instance;
-
-	/**
-	 * The array of templates that this plugin tracks.
-	 */
-	protected $templates;
-
-	/**
-	 * Returns an instance of this class. 
-	 */
-	public static function get_instance() {
-
-		if ( null == self::$instance ) {
-			self::$instance = new PageTemplater();
-		} 
-
-		return self::$instance;
-
-	} 
-
-	/**
-	 * Initializes the plugin by setting filters and administration functions.
-	 */
-	private function __construct() {
-
-		$this->templates = array();
-
-
-		// Add a filter to the attributes metabox to inject template into the cache.
-		if ( version_compare( floatval( get_bloginfo( 'version' ) ), '4.7', '<' ) ) {
-
-			// 4.6 and older
-			add_filter(
-				'page_attributes_dropdown_pages_args',
-				array( $this, 'register_project_templates' )
-			);
-
-		} else {
-
-			// Add a filter to the wp 4.7 version attributes metabox
-			add_filter(
-				'theme_page_templates', array( $this, 'add_new_template' )
-			);
-
-		}
-
-		// Add a filter to the save post to inject out template into the page cache
-		add_filter(
-			'wp_insert_post_data', 
-			array( $this, 'register_project_templates' ) 
-		);
-
-
-		// Add a filter to the template include to determine if the page has our 
-		// template assigned and return it's path
-		add_filter(
-			'template_include', 
-			array( $this, 'view_project_template') 
-		);
-
-
-		// Add your templates to this array.
-		$this->templates = array(
-			'survey-template.php' => 'Survey Page',
-		);
-			
-	} 
-
-	/**
-	 * Adds our template to the page dropdown for v4.7+
-	 *
-	 */
-	public function add_new_template( $posts_templates ) {
-		$posts_templates = array_merge( $posts_templates, $this->templates );
-		return $posts_templates;
-	}
-
-	/**
-	 * Adds our template to the pages cache in order to trick WordPress
-	 * into thinking the template file exists where it doens't really exist.
-	 */
-	public function register_project_templates( $atts ) {
-
-		// Create the key used for the themes cache
-		$cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
-
-		// Retrieve the cache list. 
-		// If it doesn't exist, or it's empty prepare an array
-		$templates = wp_get_theme()->get_page_templates();
-		if ( empty( $templates ) ) {
-			$templates = array();
-		} 
-
-		// New cache, therefore remove the old one
-		wp_cache_delete( $cache_key , 'themes');
-
-		// Now add our template to the list of templates by merging our templates
-		// with the existing templates array from the cache.
-		$templates = array_merge( $templates, $this->templates );
-
-		// Add the modified cache to allow WordPress to pick it up for listing
-		// available templates
-		wp_cache_add( $cache_key, $templates, 'themes', 1800 );
-
-		return $atts;
-
-	} 
-
-	/**
-	 * Checks if the template is assigned to the page
-	 */
-	public function view_project_template( $template ) {
-		
-		// Get global post
-		global $post;
-
-		// Return template if post is empty
-		if ( ! $post ) {
-			return $template;
-		}
-
-		// Return default template if we don't have a custom one defined
-		if ( ! isset( $this->templates[get_post_meta( 
-			$post->ID, '_wp_page_template', true 
-		)] ) ) {
-			return $template;
-		} 
-
-		$file = plugin_dir_path( __FILE__ ) . 'templates/' . get_post_meta( 
-			$post->ID, '_wp_page_template', true
-		);
-
-		// Just to be safe, we check if the file exist first
-		if ( file_exists( $file ) ) {
-			return $file;
-		} else {
-			echo $file;
-		}
-
-		// Return template
-		return $template;
-
-	}
-
-}
-
-add_action( 'plugins_loaded', array( 'PageTemplater', 'get_instance' ) );
-
 ?>

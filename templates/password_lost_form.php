@@ -27,7 +27,7 @@
 				<?php endforeach; ?>
 			<?php endif; ?>
 
-			<p class="login-info">
+			<p style="text-align: center;">
 				<?php
 					_e( "Enter your email and we'll send you a link to create a new password.", 'ftse-data-capture' );
 				?>

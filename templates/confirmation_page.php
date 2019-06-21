@@ -34,8 +34,6 @@ $options = get_option('rh_settings');
 			<p>
 				The data you entered has been successfully submitted and you will receive a confirmation email for your own records.
 				<br><br>
-				The Hampton-Alexander Review will publish the details in November 2019.
-				<br><br>
 				Thank you for your continued support. We look forward to sharing best practice and reporting on progress in our annual report which will be published on the 13<sup>th</sup> November 2019.
 				<br><br>
 				<strong>The Hampton-Alexander Team</strong>

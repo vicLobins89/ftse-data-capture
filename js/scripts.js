@@ -29,14 +29,30 @@ jQuery(document).ready(function($){
 	
 	var companies = {
 		"Company Name": "",
-		"Scenario2 User1": "Test",
-		"Scenario2 User2": "Test",
-		"Scenario2 User3": "Test",
-		"Scenario2 User4": "Test",
-		"Scenario3 User1": "Test",
-		"Scenario3 User2": "Test",
-		"Scenario3 User3": "Test",
-		"Scenario3 User4": "Test",
+		
+		"Aston Martin Lagonda Global Holdings Plc": "Automobiles & Parts",
+		"Apax Global Alpha Ltd": "Equity Investment Instruments",
+		"Bbgi Sicav Sa": "Equity Investment Instruments",
+		"Hg Capital Trust Plc": "Equity Investment Instruments",
+		"Smithson Investment Trust Plc": "Equity Investment Instruments",
+		"Woodford Patient Capital Trust Plc": "Equity Investment Instruments",
+		"Aj Bell Plc": "Financial Services",
+		"Pets At Home Group Plc": "General Retailers",
+		"Mccarthy & Stone Plc": "Household Goods & Home Construction",
+		"Acacia Mining Plc": "Mining",
+		"Sabre Insurance Group Plc": "Nonlife Insurance",
+		"Civitas Social Housing Plc": "Real Estate Investment Trusts",
+		"Funding Circle Holdings Plc": "Software & Computer Services",
+		"Restaurant Group Plc": "Travel & Leisure",
+        
+        "Network International Holdings Plc": "Support Services",
+        "Future Plc": "Media",
+        "PPHE Hotel Group Ltd": "Travel & Leisure",
+        "Kainos Group Plc": "Software & Computer Services",
+        "4imprint Group Plc": "Media",
+        "Paypoint Plc": "Support Services",
+        "Marston's Plc": "Travel & Leisure",
+		
 		"Honey": "Design",
 		"3I Group Plc": "Financial Services",
 		"3I Infrastructure Plc": "Equity Investment Instruments",
@@ -506,6 +522,13 @@ jQuery(document).ready(function($){
 			"Wpp Plc"
 		],
 		'250': [
+            "Network International Holdings Plc",
+            "Future Plc",
+            "PPHE Hotel Group Ltd",
+            "Kainos Group Plc",
+            "4imprint Group Plc",
+            "Paypoint Plc",
+            "Marston's Plc",
 			"3I Infrastructure Plc",
 			"888 Holdings Plc",
 			"Aa Plc",
@@ -819,7 +842,7 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	$('input[type!="hidden"]').on('keyup blur', function(){
+	$('.page-member-register input[type!="hidden"]').on('keyup blur', function(){
 		var inputVal = $(this).val();
 
 		if( inputVal.length == 0 ) {
@@ -896,7 +919,7 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	$('input, .checkbox').on('blur keyup click', function(){
+	$('.page-member-register input, .page-member-register .checkbox').on('blur keyup click', function(){
 		if( !emptyFields && compCheck && fNameCheck && sNameCheck && emailCheck && telCheck && $('input#disclaimer').is(':checked') ) {
 			$('#submit-button').prop('disabled', false);
 			$('.overlay').hide();
@@ -924,9 +947,9 @@ jQuery(document).ready(function($){
 		}
 	});
 	
-	$('input').addClass('fail');
+	$('.page-member-register input').addClass('fail');
 	
-	$('.overlay-two').click(function(){
+	$('.page-member-register .overlay-two').click(function(){
 		$('.fail:not(#disclaimer, #company-name)').siblings('.error_msg').text(errorMessages.empty);
 		if( !$('input#disclaimer').is(':checked') ) $('#disclaimer').siblings('.error_msg').text(errorMessages.disclaimer);
 		if( $("#company-name").val() == 'Company Name' || $("#company-name").val() == '' ) $('#company-name').siblings('.error_msg').text(errorMessages.company);
@@ -934,10 +957,15 @@ jQuery(document).ready(function($){
 	
 	
 	// Survey page
-	var totalOne;
-	var totalTwo;
+	var totalOne,
+		totalTwo,
+		errorEmpty,
+		errorSec3,
+		error2ab,
+		secA,
+		secB;
 	
-	$('input').on('keyup click blur', function(){
+	function validate() {
 		var empty = $('input[type="number"]:not([readonly])').filter(function() {
 			return this.value === "";
 		});
@@ -976,22 +1004,6 @@ jQuery(document).ready(function($){
 		$('#repDirectWomen').val( (turnDirectAvgWomen - turnDirectLeftWomen) + turnDirectJoinedWomen );
 		$('#repDirectTotal').val( ((turnDirectAvgMen - turnDirectLeftMen) + turnDirectJoinedMen) + ((turnDirectAvgWomen - turnDirectLeftWomen) + turnDirectJoinedWomen) );
 		
-		if( $('.last-year #prevRepExecMen').text() != '' && $('.last-year #prevRepExecWomen').text() != '' ) {
-			if( turnExecAvgMen != $('.last-year #prevRepExecMen').text() || turnExecAvgWomen != $('.last-year #prevRepExecWomen').text() ) {
-				$('.error_msg.prevYearExec').addClass('show');
-			} else {
-				$('.error_msg.prevYearExec').removeClass('show');
-			}
-		}
-		
-		if( $('.last-year #prevRepDirectMen').text() != '' || $('.last-year #prevRepDirectMen').text() != '' ) {
-			if( turnDirectAvgMen != $('.last-year #prevRepDirectMen').text() || turnDirectAvgWomen != $('.last-year #prevRepDirectWomen').text() ) {
-				$('.error_msg.prevYearDirect').addClass('show');
-			} else {
-				$('.error_msg.prevYearDirect').removeClass('show');
-			}
-		}
-		
 		if( negative.length ) {
 			$('.error_msg.neg').show();
 		} else {
@@ -999,19 +1011,74 @@ jQuery(document).ready(function($){
 		}
 
 		if(empty.length || negative.length) {
+			$('.trigger').addClass('zero');
+			errorEmpty = true;
+		} else {
+			$('.trigger').removeClass('zero');
+			$('.error_msg.zero').hide();
+			errorEmpty = false;
+		}
+	}
+	
+	function checkSec3() {
+		if( $('#gcSecCombined').val() !== '' || $('#gcSecCombinedName').val() !== '' ) {
+			secA = true;
+		} else {
+			secA = false;
+		}
+		
+		if( $('#headOfLegal').val() !== '' || $('#headOfLegalName').val() !== '' || $('#companySec').val() !== '' || $('#companySecName').val() !== '' ) {
+			secB = true;
+		} else {
+			secB = false;
+		}
+		
+		if( secA && secB ) {
+			$('.trigger').addClass('2ab');
+			error2ab = true;
+		} else {
+			$('.trigger').removeClass('2ab');
+			$('.error_msg.2ab').hide();
+			error2ab = false;
+		}
+		
+		if( 
+			$('#leadingExec').val() === '' ||
+			$('#leadingExecName').val() === '' ||
+			$('#seniorInfoTech').val() === '' ||
+			$('#seniorInfoTechName').val() === '' ||
+			(!secA && !secB)
+		) {
+			$('.trigger').addClass('sec3');
+			errorSec3 = true;
+		} else {
+			$('.trigger').removeClass('sec3');
+			$('.error_msg.sec3').hide();
+			errorSec3 = false;
+		}
+	}
+	
+	function trigger() {
+		if( errorEmpty || errorSec3 || error2ab ) {
+			$('.trigger').show();
 			$('input.submit').prop('disabled', true);
 		} else {
+			$('.trigger').hide();
 			$('input.submit').prop('disabled', false);
 		}
+	}
+	
+	$('.page-gender-equality-data-collection input').on('keyup click blur', function(){
+		validate();
 	});
 	
-//	$('#share-info').on('click', function(){
-//		if ( $(this).is(':checked') ) {
-//			$('.submit-wrap .overlay').hide();
-//		} else {
-//			$('.submit-wrap .overlay').show();
-//		}
-//	});
+	$('.page-gender-equality-data-collection select, .page-gender-equality-data-collection input[type="text"]').on('click keyup blur change', function(){
+		checkSec3();
+	});
+	
+	$('.page-gender-equality-data-collection input, .page-gender-equality-data-collection select').on('click keyup blur change', function(){
+		trigger();
+	});
 	
 	$(window).on('load', function(){
 		
@@ -1020,69 +1087,44 @@ jQuery(document).ready(function($){
 			lastYearRepDirectMen = $('.last-year #prevRepDirectMen').text(),
 			lastYearRepDirectWomen = $('.last-year #prevRepDirectWomen').text();
 		
-		if( lastYearRepExecMen != '' ) $('#turnExecAvgMen').val( lastYearRepExecMen ).attr('readonly', 'readonly');
-		if( lastYearRepExecWomen != '' ) $('#turnExecAvgWomen').val( lastYearRepExecWomen ).attr('readonly', 'readonly');
-		if( lastYearRepDirectMen != '' ) $('#turnDirectAvgMen').val( lastYearRepDirectMen ).attr('readonly', 'readonly');
-		if( lastYearRepDirectWomen != '' ) $('#turnDirectAvgWomen').val( lastYearRepDirectWomen ).attr('readonly', 'readonly');
-		if( lastYearRepExecMen != '' && lastYearRepExecWomen != '' ) $('#turnExecAvgTotal').attr('readonly', 'readonly');
-		if( lastYearRepDirectMen != '' && lastYearRepDirectWomen != '' ) $('#turnDirectAvgTotal').attr('readonly', 'readonly');
-		
-		var repExecTotal = parseInt($('#repExecTotal').val()),
-			repExecMen = parseInt($('#repExecMen').val()),
-			repExecWomen = parseInt($('#repExecWomen').val()),
-			turnExecAvgMen = parseInt($('#turnExecAvgMen').val()),
-			turnExecJoinedMen = parseInt($('#turnExecJoinedMen').val()),
-			turnExecLeftMen = parseInt($('#turnExecLeftMen').val()),
-			turnExecAvgWomen = parseInt($('#turnExecAvgWomen').val()),
-			turnExecJoinedWomen = parseInt($('#turnExecJoinedWomen').val()),
-			turnExecLeftWomen = parseInt($('#turnExecLeftWomen').val());
-		
-		var repDirectTotal = parseInt($('#repDirectTotal').val()),
-			repDirectMen = parseInt($('#repDirectMen').val()),
-			repDirectWomen = parseInt($('#repDirectWomen').val()),
-			turnDirectAvgMen = parseInt($('#turnDirectAvgMen').val()),
-			turnDirectJoinedMen = parseInt($('#turnDirectJoinedMen').val()),
-			turnDirectLeftMen = parseInt($('#turnDirectLeftMen').val()),
-			turnDirectAvgWomen = parseInt($('#turnDirectAvgWomen').val()),
-			turnDirectJoinedWomen = parseInt($('#turnDirectJoinedWomen').val()),
-			turnDirectLeftWomen = parseInt($('#turnDirectLeftWomen').val());
-		
-		$('#turnExecAvgTotal').val(turnExecAvgMen + turnExecAvgWomen);
-		$('#repExecMen').val( (turnExecAvgMen - turnExecLeftMen) + turnExecJoinedMen );
-		$('#repExecWomen').val( (turnExecAvgWomen - turnExecLeftWomen) + turnExecJoinedWomen );
-		$('#repExecTotal').val(repExecMen + repExecWomen);
-		
-		$('#turnDirectAvgTotal').val(turnDirectAvgMen + turnDirectAvgWomen);
-		$('#repDirectMen').val( (turnDirectAvgMen - turnDirectLeftMen) + turnDirectJoinedMen );
-		$('#repDirectWomen').val( (turnDirectAvgWomen - turnDirectLeftWomen) + turnDirectJoinedWomen );
-		$('#repDirectTotal').val(repDirectMen + repDirectWomen);
-		
-		var empty = $('input[type="number"]').filter(function() {
-			return this.value === "";
-		});
-
-		if(empty.length) {
-			$('input.submit').prop('disabled', true);
-		} else {
-			$('input.submit').prop('disabled', false);
+		if( lastYearRepExecMen !== '' ) {
+			$('#turnExecAvgMen').val( lastYearRepExecMen ).attr('readonly', 'readonly');
+		}
+		if( lastYearRepExecWomen !== '' ) {
+			$('#turnExecAvgWomen').val( lastYearRepExecWomen ).attr('readonly', 'readonly');
+		}
+		if( lastYearRepDirectMen !== '' ) {
+			$('#turnDirectAvgMen').val( lastYearRepDirectMen ).attr('readonly', 'readonly');
+		}
+		if( lastYearRepDirectWomen !== '' ) {
+			$('#turnDirectAvgWomen').val( lastYearRepDirectWomen ).attr('readonly', 'readonly');
+		}
+		if( lastYearRepExecMen !== '' && lastYearRepExecWomen !== '' ) {
+			$('#turnExecAvgTotal').attr('readonly', 'readonly');
+		}
+		if( lastYearRepDirectMen !== '' && lastYearRepDirectWomen !== '' ) {
+			$('#turnDirectAvgTotal').attr('readonly', 'readonly');
 		}
 		
-		if ( $('#share-info').is(':checked') ) {
-			$('.submit-wrap .overlay').hide();
-		} else {
-			$('.submit-wrap .overlay').show();
+		$( "#turnDirectAvgTotal" ).trigger( "click" );
+		validate();
+		checkSec3();
+		trigger();
+	});
+	
+	$('.trigger').on('click', function(){
+		if( $(this).hasClass('zero') ) {
+			$('.error_msg.zero').show();
+		}
+		
+		if( $(this).hasClass('sec3') ) {
+			$('.error_msg.sec3').show();
+		}
+		
+		if( $(this).hasClass('2ab') ) {
+			$('.error_msg.2ab').show();
 		}
 	});
-
-	function limitText(field, maxChar){
-		var ref = $(field),
-			val = ref.val();
-		if ( val.length >= maxChar ){
-			ref.val(function() {
-				return val.substr(0, maxChar);       
-			});
-		}
-	}
 	
 	$('input.save').click(function(){
 		$('.popUp').show();
