@@ -204,7 +204,7 @@ $options = get_option('rh_settings');
 						<br>
 						<?php endif; ?>
 						
-						<div class="section-wrapper top locked">
+						<div class="section-wrapper top">
 							<!-- SECTION 1 -->
 							
 							<h4><strong>Section 1</strong></h4>
@@ -304,7 +304,7 @@ $options = get_option('rh_settings');
 							</div>
 						</div>
 						
-						<div class="section-wrapper locked">
+						<div class="section-wrapper">
 							<!-- SECTION 2 -->
 							
 							<h4><strong>Section 2</strong></h4>
@@ -404,7 +404,7 @@ $options = get_option('rh_settings');
 							</div>
 						</div>
 						
-						<div class="section-wrapper locked">
+						<div class="section-wrapper">
 							<!-- SECTION 3 -->
 							
 							<h4><strong>Section 3</strong></h4>
