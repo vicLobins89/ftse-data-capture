@@ -433,6 +433,7 @@ $options = get_option('rh_settings');
 										<p>Gender: </p>
 										<select name="leadingExec" id="leadingExec">
 											<option value="">Please Select</option>
+											<option <?php if ($currentData->leadingExec == 'Non-applicable') echo 'selected' ; ?> value="Non-applicable">Non-applicable</option>
 											<option <?php if ($currentData->leadingExec == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option  <?php if ($currentData->leadingExec == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
@@ -451,6 +452,7 @@ $options = get_option('rh_settings');
 										<p>Gender: </p>
 										<select name="seniorInfoTech" id="seniorInfoTech">
 											<option value="">Please Select</option>
+											<option <?php if ($currentData->seniorInfoTech == 'Non-applicable') echo 'selected' ; ?> value="Non-applicable">Non-applicable</option>
 											<option <?php if ($currentData->seniorInfoTech == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option  <?php if ($currentData->seniorInfoTech == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
@@ -475,6 +477,7 @@ $options = get_option('rh_settings');
 										<p>Gender: </p>
 										<select name="gcSecCombined" id="gcSecCombined">
 											<option value="">Please Select</option>
+											<option <?php if ($currentData->gcSecCombined == 'Non-applicable') echo 'selected' ; ?> value="Non-applicable">Non-applicable</option>
 											<option <?php if ($currentData->gcSecCombined == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option <?php if ($currentData->gcSecCombined == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
@@ -493,6 +496,7 @@ $options = get_option('rh_settings');
 										<p>Gender: </p>
 										<select name="headOfLegal" id="headOfLegal">
 											<option value="">Please Select</option>
+											<option <?php if ($currentData->headOfLegal == 'Non-applicable') echo 'selected' ; ?> value="Non-applicable">Non-applicable</option>
 											<option <?php if ($currentData->headOfLegal == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option <?php if ($currentData->headOfLegal == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
@@ -515,6 +519,7 @@ $options = get_option('rh_settings');
 										<p>Gender: </p>
 										<select name="companySec" id="companySec">
 											<option value="">Please Select</option>
+											<option <?php if ($currentData->companySec == 'Non-applicable') echo 'selected' ; ?> value="Non-applicable">Non-applicable</option>
 											<option <?php if ($currentData->companySec == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option <?php if ($currentData->companySec == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
