@@ -957,6 +957,12 @@ jQuery(document).ready(function($){
 	
 	
 	// Survey page
+    $('html body.page-id-764').bind('keypress', function(e) {
+       if(e.keyCode == 13) {
+          return false;
+       }
+    });
+    
 	var totalOne,
 		totalTwo,
 		errorEmpty,
@@ -1021,32 +1027,45 @@ jQuery(document).ready(function($){
 	}
 	
 	function checkSec3() {
-		if( $('#gcSecCombined').val() !== '' || $('#gcSecCombinedName').val() !== '' ) {
+		if( 
+            $('#gcSecCombined').val() !== '' || 
+            $('#gcSecCombinedName').val() !== '' 
+        ) {
 			secA = true;
 		} else {
 			secA = false;
 		}
 		
-		if( $('#headOfLegal').val() !== '' || $('#headOfLegalName').val() !== '' || $('#companySec').val() !== '' || $('#companySecName').val() !== '' ) {
+		if( 
+            $('#headOfLegal').val() !== '' || 
+            $('#headOfLegalName').val() !== '' || 
+            $('#companySec').val() !== '' || 
+            $('#companySecName').val() !== '' ) 
+        {
 			secB = true;
 		} else {
 			secB = false;
 		}
 		
-		if( secA && secB ) {
+        if( secA ) {
+           $('#headOfLegal, #companySec').prop('disabled', true);
+        } else if( secB ) {
+            $('#gcSecCombined').prop('disabled', true);
+        } else if( secA && secB ) {
 			$('.trigger').addClass('2ab');
 			error2ab = true;
 		} else {
 			$('.trigger').removeClass('2ab');
 			$('.error_msg.2ab').hide();
 			error2ab = false;
+            $('#headOfLegal, #companySec, #gcSecCombined').prop('disabled', false);
 		}
 		
 		if( 
 			$('#leadingExec').val() === '' ||
 			$('#leadingExecName').val() === '' ||
 			$('#seniorInfoTech').val() === '' ||
-			$('#seniorInfoTechName').val() === '' ||
+            ( $('#seniorInfoTechName').val() === '' && ( $('#seniorInfoTech').val() === 'Man' || $('#seniorInfoTech').val() === 'Woman' ) ) ||
 			(!secA && !secB)
 		) {
 			$('.trigger').addClass('sec3');

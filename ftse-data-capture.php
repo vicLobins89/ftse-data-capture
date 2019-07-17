@@ -1016,12 +1016,12 @@ function ftse_plugin_settings_page() {
 					<tbody>';
 			foreach($users as $user) {
 				if( $year->year == '2017' ) {
-					$surveyData = $wpdb->get_row( "SELECT * FROM $surveyTable WHERE company = '$user->user_login' AND year = '$year->year'" );
+					$surveyData = $wpdb->get_row( "SELECT * FROM $surveyTable WHERE user_id = '$user->ID' AND year = '$year->year'" );
 				} else {
-					$surveyData = $wpdb->get_row( "SELECT * FROM $surveyTable WHERE company = '$user->user_login' AND year = '$year->year' AND ftse = '$ftseIndexNo'" );
+					$surveyData = $wpdb->get_row( "SELECT * FROM $surveyTable WHERE user_id = '$user->ID' AND year = '$year->year' AND ftse = '$ftseIndexNo'" );
 				}
 				
-				$company = get_user_meta($surveyData->user_id, 'company_name', true);
+				$company = ( !$surveyData->company ? get_user_meta($user->ID, 'company_name', true) : $surveyData->company );
 				$ftseIndex = ( !$surveyData->ftse ? get_user_meta($user->ID, 'ftseIndex', true) : $surveyData->ftse );
 				$sector = get_user_meta($user->ID, 'sector', true);
 				$invTrust = get_user_meta($user->ID, 'invTrust', true);
@@ -1036,7 +1036,7 @@ function ftse_plugin_settings_page() {
 					$status = 'No submission';
 				}
 				echo '<tr>
-					<td width="180" class="export">'.$user->user_login.'</td>
+					<td width="180" class="export">'.$company.'</td>
 					<td width="180">'.$sector.'</td>
 
 					<td>'.$surveyData->turnExecAvgMen.'</td>

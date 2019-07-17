@@ -962,6 +962,11 @@ p.description {
 	margin: 0 0 0 10px;
 }
 
+.locked .section.three .row .col:nth-child(2) select {
+	width: auto;
+	margin: 0 0 0 10px;
+}
+
 .section.three .row .col:nth-child(2) select + p {
 	margin-left: 10px;
 }

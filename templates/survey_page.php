@@ -433,7 +433,6 @@ $options = get_option('rh_settings');
 										<p>Gender: </p>
 										<select name="leadingExec" id="leadingExec">
 											<option value="">Please Select</option>
-											<option <?php if ($currentData->leadingExec == 'Non-applicable') echo 'selected' ; ?> value="Non-applicable">Non-applicable</option>
 											<option <?php if ($currentData->leadingExec == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option  <?php if ($currentData->leadingExec == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
@@ -452,9 +451,9 @@ $options = get_option('rh_settings');
 										<p>Gender: </p>
 										<select name="seniorInfoTech" id="seniorInfoTech">
 											<option value="">Please Select</option>
-											<option <?php if ($currentData->seniorInfoTech == 'Non-applicable') echo 'selected' ; ?> value="Non-applicable">Non-applicable</option>
 											<option <?php if ($currentData->seniorInfoTech == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option  <?php if ($currentData->seniorInfoTech == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
+                                            <option <?php if ($currentData->seniorInfoTech == 'No such role exists') echo 'selected' ; ?> value="No such role exists">No such role exists</option>
 										</select>
 										<br>
 										<p>Name: </p>
@@ -464,7 +463,8 @@ $options = get_option('rh_settings');
 								
 								<div class="cf row">
 									<div class="col col-info">
-										<strong>3.</strong> Please answer only (a) where this a combined role or (b) where these are separate roles
+										<strong>3.</strong> Please answer <strong>only</strong> (a) or (b).<br>
+                                        Answer (a) where this is a combined role, answer (b) where these are separate roles.
 									</div>
 								</div>
 								
@@ -477,9 +477,9 @@ $options = get_option('rh_settings');
 										<p>Gender: </p>
 										<select name="gcSecCombined" id="gcSecCombined">
 											<option value="">Please Select</option>
-											<option <?php if ($currentData->gcSecCombined == 'Non-applicable') echo 'selected' ; ?> value="Non-applicable">Non-applicable</option>
 											<option <?php if ($currentData->gcSecCombined == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option <?php if ($currentData->gcSecCombined == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
+                                            <option <?php if ($currentData->gcSecCombined == 'No such role exists') echo 'selected' ; ?> value="No such role exists">No such role exists</option>
 										</select>
 										<br>
 										<p>Name: </p>
@@ -496,9 +496,9 @@ $options = get_option('rh_settings');
 										<p>Gender: </p>
 										<select name="headOfLegal" id="headOfLegal">
 											<option value="">Please Select</option>
-											<option <?php if ($currentData->headOfLegal == 'Non-applicable') echo 'selected' ; ?> value="Non-applicable">Non-applicable</option>
 											<option <?php if ($currentData->headOfLegal == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option <?php if ($currentData->headOfLegal == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
+                                            <option <?php if ($currentData->headOfLegal == 'No such role exists') echo 'selected' ; ?> value="No such role exists">No such role exists</option>
 										</select>
 										<br>
 										<p>Name: </p>
@@ -519,9 +519,9 @@ $options = get_option('rh_settings');
 										<p>Gender: </p>
 										<select name="companySec" id="companySec">
 											<option value="">Please Select</option>
-											<option <?php if ($currentData->companySec == 'Non-applicable') echo 'selected' ; ?> value="Non-applicable">Non-applicable</option>
 											<option <?php if ($currentData->companySec == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option <?php if ($currentData->companySec == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
+                                            <option <?php if ($currentData->companySec == 'No such role exists') echo 'selected' ; ?> value="No such role exists">No such role exists</option>
 										</select>
 										<br>
 										<p>Name: </p>
@@ -537,7 +537,7 @@ $options = get_option('rh_settings');
 						<p class="error_msg neg">Total number of Executive Committee members cannot be less than zero</p>
 						<p class="error_msg zero">Please make sure you complete all required fields in Section 1 and 2</p>
 						<p class="error_msg sec3">Please make sure you complete all required fields in Section 3</p>
-						<p class="error_msg 2ab">Please complete <strong>either</strong> 2(a) or 2(b)</p>
+						<p class="error_msg 2ab">Please complete <strong>either</strong> 3(a) or 3(b)</p>
 						<div class="save-wrap"><input type="submit" name="submitBtn1" value="Save only" class="green-button save" /></div>
 						<div class="submit-wrap">
 							<div class="overlay-two"></div>
