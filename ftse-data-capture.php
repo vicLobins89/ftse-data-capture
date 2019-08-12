@@ -1015,12 +1015,9 @@ function ftse_plugin_settings_page() {
 					</tr></thead>
 					<tbody>';
 			foreach($users as $user) {
-				if( $year->year == '2017' ) {
-					$surveyData = $wpdb->get_row( "SELECT * FROM $surveyTable WHERE user_id = '$user->ID' AND year = '$year->year'" );
-				} else {
-					$surveyData = $wpdb->get_row( "SELECT * FROM $surveyTable WHERE user_id = '$user->ID' AND year = '$year->year' AND ftse = '$ftseIndexNo'" );
-				}
-				
+				$surveyData = $wpdb->get_row( "SELECT * FROM $surveyTable WHERE user_id = '$user->ID' AND year = '$year->year'" );
+//				$surveyData = $wpdb->get_row( "SELECT * FROM $surveyTable WHERE company = '$user->user_login' AND year = '$year->year'" );
+                
 				$company = ( !$surveyData->company ? get_user_meta($user->ID, 'company_name', true) : $surveyData->company );
 				$ftseIndex = ( !$surveyData->ftse ? get_user_meta($user->ID, 'ftseIndex', true) : $surveyData->ftse );
 				$sector = get_user_meta($user->ID, 'sector', true);

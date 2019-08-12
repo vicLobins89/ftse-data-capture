@@ -14,11 +14,9 @@
 			
 			<h1 class="survey-title">FTSE 350 Gender Data Submission Portal</h1>
 			
-			<p style="text-align: center">The next report will be published on 13th November 2019</p>
+			<p class="warning">The annual data submission process was open to receive company specific data from Monday 1 July, however closed for submissions on Wednesday 31 July 2019. If you need to get in touch regarding your recent submission or a late entry, please do so at <a href="mailto:info@ftsewomenleaders.com">info@ftsewomenleaders.com</a>.</p>
 			
-			<p class="warning">For companies new to the FTSE 350 index and registering for the first time, or any company needing to change their user details, browse prior year submissions or the online form for 2019, the portal will be open from Wednesday 1st May 2019.</p>
-			
-			<p class="warning">The 2019 data submission process will be open to receive company specific data from Monday 1st July until Wednesday 31st July 2019.</p>
+			<p class="warning">The next report will be published on 13th November 2019.</p>
 			
 			<h2 class="welcome">Welcome</h2>
 			
