@@ -29,6 +29,10 @@ jQuery(document).ready(function($){
 	
 	var companies = {
 		"Company Name": "",
+        
+        "Law Debenture Corporation": "Closed End Investments",
+        "NextEnergy Solar Fund Limited": "Closed End Investments",
+        "Oxford Instruments Plc": "Electronic and Electrical Equipment",
 		
 		"Aston Martin Lagonda Global Holdings Plc": "Automobiles & Parts",
 		"Apax Global Alpha Ltd": "Equity Investment Instruments",
@@ -522,6 +526,9 @@ jQuery(document).ready(function($){
 			"Wpp Plc"
 		],
 		'250': [
+            "Law Debenture Corporation",
+            "NextEnergy Solar Fund Limited",
+            "Oxford Instruments Plc",
             "Hg Capital Trust Plc",
             "Smithson Investment Trust Plc",
             "Woodford Patient Capital Trust Plc",
