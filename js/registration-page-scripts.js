@@ -1,33 +1,10 @@
-function openTab(evt, cityName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-
-if( document.getElementById("defaultOpen") !== null ){
-	document.getElementById("defaultOpen").click();
-}
+/*
+* Front End Scripts for the Registration Page
+*/
 
 jQuery(document).ready(function($){
-	
-	/*//////////////////// REGISTER PAGE ////////////////////////*/
-	
-	var companies = {
+    
+    var companies = {
 		"Company Name": "",
         
         "Law Debenture Corporation": "Closed End Investments",
@@ -411,7 +388,6 @@ jQuery(document).ready(function($){
 	};
 	
 	var company_name = Object.keys(companies);
-	
 	
 	var ftseIndex = {
 		'100': [
@@ -929,9 +905,11 @@ jQuery(document).ready(function($){
 			}
 		}
 
-		var empty = $('input[type!="hidden"], input:not([disabled])').filter(function() {
+		var empty = $('input[type!="hidden"]:not([disabled]):not(.optional)').filter(function() {
 			return this.value === "";
 		});
+        
+        console.log(empty);
 
 		if(empty.length) {
 			emptyFields = true;
@@ -968,300 +946,12 @@ jQuery(document).ready(function($){
 		}
 	});
 	
-	$('.page-member-register input').addClass('fail');
+	$('.page-member-register input:not(.optional)').addClass('fail');
 	
 	$('.page-member-register .overlay-two').click(function(){
 		$('.fail:not(#disclaimer, #company-name)').siblings('.error_msg').text(errorMessages.empty);
 		if( !$('input#disclaimer').is(':checked') ) $('#disclaimer').siblings('.error_msg').text(errorMessages.disclaimer);
 		if( $("#company-name").val() == 'Company Name' || $("#company-name").val() == '' ) $('#company-name').siblings('.error_msg').text(errorMessages.company);
 	});
-	
-	
-	// Survey page
-    $('html body.page-id-764').bind('keypress', function(e) {
-       if(e.keyCode == 13) {
-          return false;
-       }
-    });
     
-	var totalOne,
-		totalTwo,
-		errorEmpty,
-		errorSec3,
-		error2ab,
-		secA,
-		secB;
-	
-	function validate() {
-		var empty = $('input[type="number"]:not([readonly])').filter(function() {
-			return this.value === "";
-		});
-		
-		var negative = $('input[readonly]').filter(function() {
-			return this.value < 0;
-		});
-		
-		var repExecTotal = parseInt($('#repExecTotal').val()),
-			repExecMen = parseInt($('#repExecMen').val()),
-			repExecWomen = parseInt($('#repExecWomen').val()),
-			turnExecAvgMen = parseInt($('#turnExecAvgMen').val()),
-			turnExecJoinedMen = parseInt($('#turnExecJoinedMen').val()),
-			turnExecLeftMen = parseInt($('#turnExecLeftMen').val()),
-			turnExecAvgWomen = parseInt($('#turnExecAvgWomen').val()),
-			turnExecJoinedWomen = parseInt($('#turnExecJoinedWomen').val()),
-			turnExecLeftWomen = parseInt($('#turnExecLeftWomen').val());
-		
-		var repDirectTotal = parseInt($('#repDirectTotal').val()),
-			repDirectMen = parseInt($('#repDirectMen').val()),
-			repDirectWomen = parseInt($('#repDirectWomen').val()),
-			turnDirectAvgMen = parseInt($('#turnDirectAvgMen').val()),
-			turnDirectJoinedMen = parseInt($('#turnDirectJoinedMen').val()),
-			turnDirectLeftMen = parseInt($('#turnDirectLeftMen').val()),
-			turnDirectAvgWomen = parseInt($('#turnDirectAvgWomen').val()),
-			turnDirectJoinedWomen = parseInt($('#turnDirectJoinedWomen').val()),
-			turnDirectLeftWomen = parseInt($('#turnDirectLeftWomen').val());
-		
-		$('#turnExecAvgTotal').val(turnExecAvgMen + turnExecAvgWomen);
-		$('#repExecMen').val( (turnExecAvgMen - turnExecLeftMen) + turnExecJoinedMen );
-		$('#repExecWomen').val( (turnExecAvgWomen - turnExecLeftWomen) + turnExecJoinedWomen );
-		$('#repExecTotal').val( ((turnExecAvgMen - turnExecLeftMen) + turnExecJoinedMen) + ((turnExecAvgWomen - turnExecLeftWomen) + turnExecJoinedWomen) );
-		
-		$('#turnDirectAvgTotal').val(turnDirectAvgMen + turnDirectAvgWomen);
-		$('#repDirectMen').val( (turnDirectAvgMen - turnDirectLeftMen) + turnDirectJoinedMen );
-		$('#repDirectWomen').val( (turnDirectAvgWomen - turnDirectLeftWomen) + turnDirectJoinedWomen );
-		$('#repDirectTotal').val( ((turnDirectAvgMen - turnDirectLeftMen) + turnDirectJoinedMen) + ((turnDirectAvgWomen - turnDirectLeftWomen) + turnDirectJoinedWomen) );
-		
-		if( negative.length ) {
-			$('.error_msg.neg').show();
-		} else {
-			$('.error_msg.neg').hide();
-		}
-
-		if(empty.length || negative.length) {
-			$('.trigger').addClass('zero');
-			errorEmpty = true;
-		} else {
-			$('.trigger').removeClass('zero');
-			$('.error_msg.zero').hide();
-			errorEmpty = false;
-		}
-	}
-	
-	function checkSec3() {
-		if( 
-            $('#gcSecCombined').val() !== '' || 
-            $('#gcSecCombinedName').val() !== '' 
-        ) {
-			secA = true;
-		} else {
-			secA = false;
-		}
-		
-		if( 
-            $('#headOfLegal').val() !== '' || 
-            $('#headOfLegalName').val() !== '' || 
-            $('#companySec').val() !== '' || 
-            $('#companySecName').val() !== '' ) 
-        {
-			secB = true;
-		} else {
-			secB = false;
-		}
-		
-        if( secA ) {
-           $('#headOfLegal, #companySec').prop('disabled', true);
-        } else if( secB ) {
-            $('#gcSecCombined').prop('disabled', true);
-        } else if( secA && secB ) {
-			$('.trigger').addClass('2ab');
-			error2ab = true;
-		} else {
-			$('.trigger').removeClass('2ab');
-			$('.error_msg.2ab').hide();
-			error2ab = false;
-            $('#headOfLegal, #companySec, #gcSecCombined').prop('disabled', false);
-		}
-		
-		if( 
-			$('#leadingExec').val() === '' ||
-			$('#leadingExecName').val() === '' ||
-			$('#seniorInfoTech').val() === '' ||
-            ( $('#seniorInfoTechName').val() === '' && ( $('#seniorInfoTech').val() === 'Man' || $('#seniorInfoTech').val() === 'Woman' ) ) ||
-			(!secA && !secB)
-		) {
-			$('.trigger').addClass('sec3');
-			errorSec3 = true;
-		} else {
-			$('.trigger').removeClass('sec3');
-			$('.error_msg.sec3').hide();
-			errorSec3 = false;
-		}
-	}
-	
-	function trigger() {
-		if( errorEmpty || errorSec3 || error2ab ) {
-			$('.trigger').show();
-			$('input.submit').prop('disabled', true);
-		} else {
-			$('.trigger').hide();
-			$('input.submit').prop('disabled', false);
-		}
-	}
-	
-	$('.page-gender-equality-data-collection input').on('keyup click blur', function(){
-		validate();
-	});
-	
-	$('.page-gender-equality-data-collection select, .page-gender-equality-data-collection input[type="text"]').on('click keyup blur change', function(){
-		checkSec3();
-	});
-	
-	$('.page-gender-equality-data-collection input, .page-gender-equality-data-collection select').on('click keyup blur change', function(){
-		trigger();
-	});
-	
-	$(window).on('load', function(){
-		
-		var lastYearRepExecMen = $('.last-year #prevRepExecMen').text(),
-			lastYearRepExecWomen = $('.last-year #prevRepExecWomen').text(),
-			lastYearRepDirectMen = $('.last-year #prevRepDirectMen').text(),
-			lastYearRepDirectWomen = $('.last-year #prevRepDirectWomen').text();
-		
-		if( lastYearRepExecMen !== '' ) {
-			$('#turnExecAvgMen').val( lastYearRepExecMen ).attr('readonly', 'readonly');
-		}
-		if( lastYearRepExecWomen !== '' ) {
-			$('#turnExecAvgWomen').val( lastYearRepExecWomen ).attr('readonly', 'readonly');
-		}
-		if( lastYearRepDirectMen !== '' ) {
-			$('#turnDirectAvgMen').val( lastYearRepDirectMen ).attr('readonly', 'readonly');
-		}
-		if( lastYearRepDirectWomen !== '' ) {
-			$('#turnDirectAvgWomen').val( lastYearRepDirectWomen ).attr('readonly', 'readonly');
-		}
-		if( lastYearRepExecMen !== '' && lastYearRepExecWomen !== '' ) {
-			$('#turnExecAvgTotal').attr('readonly', 'readonly');
-		}
-		if( lastYearRepDirectMen !== '' && lastYearRepDirectWomen !== '' ) {
-			$('#turnDirectAvgTotal').attr('readonly', 'readonly');
-		}
-		
-		$( "#turnDirectAvgTotal" ).trigger( "click" );
-		validate();
-		checkSec3();
-		trigger();
-	});
-	
-	$('.trigger').on('click', function(){
-		if( $(this).hasClass('zero') ) {
-			$('.error_msg.zero').show();
-		}
-		
-		if( $(this).hasClass('sec3') ) {
-			$('.error_msg.sec3').show();
-		}
-		
-		if( $(this).hasClass('2ab') ) {
-			$('.error_msg.2ab').show();
-		}
-	});
-	
-	$('input.save').click(function(){
-		$('.popUp').show();
-	});
-	
-	$('.overlay-two').click(function(){
-		$('.confirmBox').show();
-	});
-	
-	$('.submit.close').click(function(){
-		$('.confirmBox').hide();
-	});
-	
-	$('#share-info').on('click', function(){
-		if ($('#share-info').is(':checked')) {
-			$('.overlay-two').hide();
-		} else {
-			$('.overlay-two').show();
-		}
-	});
-	
-	$('button.with-consent').on('click', function(){
-		$('#share-info').prop('checked', true);
-	});
-	
-	
-	// RESET PASS
-	var emptyFields = true;
-	var passCheck = false;
-	var passStr = false;
-
-	$('input').on('keyup blur', function(){
-		var inputVal = $(this).val();
-
-		if( inputVal.length == 0 ) {
-			$(this).addClass('fail');
-		} else {
-			$(this).removeClass('fail');
-			$(this).next('.error_msg').text('');
-		}
-
-		if( $(this).is('#pass1') ) {
-			function hasNumber(myString) {
-			  return /\d/.test(myString);
-			}
-			
-			if( $('#pass2').val() == inputVal ) {
-				$(this).next('.error_msg').text('');
-				passCheck = true;
-			} else {
-				$(this).next('.error_msg').text("Passwords don't match");
-				passCheck = false;
-			}
-			
-			if( inputVal.length >= 7 && /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+)$/.test(inputVal) ) {
-				$(this).next('.error_msg').text('');
-				passStr = true;
-			} else {
-				$(this).next('.error_msg').text('Make sure your password meets the minimum requirements');
-				passStr = false;
-			}
-		}
-
-		if( $(this).is('#pass2') ) {
-			if( $('#pass1').val() == inputVal ) {
-				$(this).next('.error_msg').text('');
-				passCheck = true;
-			} else {
-				$(this).next('.error_msg').text("Passwords don't match");
-				passCheck = false;
-			}
-		}
-
-		var empty = $('input').filter(function() {
-			return this.value === "";
-		});
-
-		if(empty.length) {
-			emptyFields = true;
-		} else {
-			emptyFields = false;
-		}
-	});
-
-	$('input').on('keyup blur', function(){
-		if( !emptyFields && passCheck && passStr ) {
-			$('#resetpass-button').prop('disabled', false);
-		} else {
-			$('#resetpass-button').prop('disabled', true);
-		}
-	});
-	
-	$('input').addClass('fail');
-	
-	$('.overlay').click(function(){
-		$('.fail:not(#disclaimer, #company-name)').siblings('.error_msg').text(errorMessages.empty);
-		if( !$('input#disclaimer').is(':checked') ) $('#disclaimer').siblings('.error_msg').text(errorMessages.disclaimer);
-		if( $("#company-name").val() == 'Company Name' || $("#company-name").val() == '' ) $('#company-name').siblings('.error_msg').text(errorMessages.company);
-	});
 });

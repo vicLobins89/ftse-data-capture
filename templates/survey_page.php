@@ -19,11 +19,28 @@ $ftse = $meta['ftseIndex'];
 $currentData = $wpdb->get_row($wpdb->prepare("SELECT * FROM $surveyTable WHERE company = %s AND year = %d AND user_id = %d", $company, $year, $user_id));
 $pastData = $wpdb->get_results($wpdb->prepare("SELECT * FROM $surveyTable WHERE year <> %d AND company = %s ORDER BY year DESC", $year, $company));
 
+$prevExecTotal = $wpdb->get_var($wpdb->prepare("SELECT repExecTotal FROM $surveyTable WHERE year = %d AND company = %s", $year-1, $company));
+$prevExecMen = $wpdb->get_var($wpdb->prepare("SELECT repExecMen FROM $surveyTable WHERE year = %d AND company = %s", $year-1, $company));
+$prevExecWomen = $wpdb->get_var($wpdb->prepare("SELECT repExecWomen FROM $surveyTable WHERE year = %d AND company = %s", $year-1, $company));
+
+$prevDirectTotal = $wpdb->get_var($wpdb->prepare("SELECT repDirectTotal FROM $surveyTable WHERE year = %d AND company = %s", $year-1, $company));
+$prevDirectMen = $wpdb->get_var($wpdb->prepare("SELECT repDirectMen FROM $surveyTable WHERE year = %d AND company = %s", $year-1, $company));
+$prevDirectWomen = $wpdb->get_var($wpdb->prepare("SELECT repDirectWomen FROM $surveyTable WHERE year = %d AND company = %s", $year-1, $company));
+
+
 //post form data
-if ( !empty($_POST) ){
+if( 
+    !empty( $_POST ) && 
+    !empty( $_POST["repExecTotal"] ) &&
+    !empty( $_POST["repExecMen"] ) &&
+	!empty( $_POST["repExecWomen"] ) &&
+	!empty( $_POST["repDirectTotal"] ) &&
+	!empty( $_POST["repDirectMen"] ) &&
+	!empty( $_POST["repDirectWomen"] )
+) {
 	
-	if ( !isset($_POST['_wpnonce']) ) die( "<br><br>Hmm .. looks like you didn't send any credentials.. No CSRF for you! " );
-	if ( !wp_verify_nonce($_POST['_wpnonce'], 'submit_gender_data') ) die( "<br><br>Hmm .. looks like you didn't send any credentials.. No CSRF for you! " );
+	if ( !isset($_POST['_wpnonce']) ) die( "<br><br>Hmm .. looks like you didn't send any credentials.. " );
+	if ( !wp_verify_nonce($_POST['_wpnonce'], 'submit_gender_data') ) die( "<br><br>Hmm .. looks like you didn't send any credentials.. " );
 	
 	global $wpdb;
 	
@@ -228,18 +245,42 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col col-num">
-										<label for="turnExecAvgMen">Men</label>
-										<input type="number" min="0" max="300" name="turnExecAvgMen" id="turnExecAvgMen" value="<?php echo $currentData->turnExecAvgMen; ?>"  />
+                                        <?php
+                                        if( $prevExecMen ) : ?>
+                                            <p><?php echo $prevExecMen; ?></p>
+                                            <input type="hidden" name="turnExecAvgMen" id="turnExecAvgMen" value="<?php echo $prevExecMen; ?>" />
+                                        <?php
+                                        else : ?>
+                                            <label for="turnExecAvgMen">Men</label>
+										    <input type="number" min="0" max="300" name="turnExecAvgMen" id="turnExecAvgMen" value="<?php echo $currentData->turnExecAvgMen; ?>" />
+                                        <?php
+                                        endif; ?>
 									</div>
 									
 									<div class="col col-num">
-										<label for="turnExecAvgWomen">Women</label>
-										<input type="number" min="0" max="300" name="turnExecAvgWomen" id="turnExecAvgWomen" value="<?php echo $currentData->turnExecAvgWomen; ?>" />
+                                        <?php
+                                        if( $prevExecWomen ) : ?>
+                                            <p><?php echo $prevExecWomen; ?></p>
+                                            <input type="hidden" name="turnExecAvgWomen" id="turnExecAvgWomen" value="<?php echo $prevExecWomen; ?>" />
+                                        <?php
+                                        else : ?>
+                                            <label for="turnExecAvgWomen">Women</label>
+										    <input type="number" min="0" max="300" name="turnExecAvgWomen" id="turnExecAvgWomen" value="<?php echo $currentData->turnExecAvgWomen; ?>" />
+                                        <?php
+                                        endif; ?>
 									</div>
 									
 									<div class="col col-num total">
-										<label for="turnExecAvgTotal">Total</label>
-										<input type="number" min="0" max="300" name="turnExecAvgTotal" id="turnExecAvgTotal" value="" />
+                                        <?php
+                                        if( $prevExecTotal ) : ?>
+                                            <p><?php echo $prevExecTotal; ?></p>
+                                            <input type="hidden" name="turnExecAvgTotal" id="turnExecAvgTotal" value="<?php echo $prevExecTotal; ?>" />
+                                        <?php
+                                        else : ?>
+                                            <label for="turnExecAvgTotal">Total</label>
+										    <input type="number" min="0" max="300" name="turnExecAvgTotal" id="turnExecAvgTotal" value="" />
+                                        <?php
+                                        endif; ?>
 									</div>
 								</div>
 								
@@ -328,18 +369,42 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col col-num">
-										<label for="turnDirectAvgMen">Men</label>
-										<input type="number" min="0" max="300" name="turnDirectAvgMen" id="turnDirectAvgMen" value="<?php echo $currentData->turnDirectAvgMen; ?>" />
+                                        <?php
+                                        if( $prevDirectMen ) : ?>
+                                            <p><?php echo $prevDirectMen; ?></p>
+                                            <input type="hidden" name="turnDirectAvgMen" id="turnDirectAvgMen" value="<?php echo $prevDirectMen; ?>" />
+                                        <?php
+                                        else : ?>
+                                            <label for="turnDirectAvgMen">Men</label>
+										    <input type="number" min="0" max="300" name="turnDirectAvgMen" id="turnDirectAvgMen" value="<?php echo $currentData->turnDirectAvgMen; ?>" />
+                                        <?php
+                                        endif; ?>
 									</div>
 									
 									<div class="col col-num">
-										<label for="turnDirectAvgWomen">Women</label>
-										<input type="number" min="0" max="300" name="turnDirectAvgWomen" id="turnDirectAvgWomen" value="<?php echo $currentData->turnDirectAvgWomen; ?>" />
+                                        <?php
+                                        if( $prevDirectWomen ) : ?>
+                                            <p><?php echo $prevDirectWomen; ?></p>
+                                            <input type="hidden" name="turnDirectAvgWomen" id="turnDirectAvgWomen" value="<?php echo $prevDirectWomen; ?>" />
+                                        <?php
+                                        else : ?>
+                                            <label for="turnDirectAvgWomen">Women</label>
+										    <input type="number" min="0" max="300" name="turnDirectAvgWomen" id="turnDirectAvgWomen" value="<?php echo $currentData->turnDirectAvgWomen; ?>" />
+                                        <?php
+                                        endif; ?>
 									</div>
 									
 									<div class="col col-num total">
-										<label for="turnDirectAvgTotal">Total</label>
-										<input type="number" min="0" max="300" name="turnDirectAvgTotal" id="turnDirectAvgTotal" value="" />
+                                        <?php
+                                        if( $prevDirectTotal ) : ?>
+                                            <p><?php echo $prevDirectTotal; ?></p>
+                                            <input type="hidden" name="turnDirectAvgTotal" id="turnDirectAvgTotal" value="<?php echo $prevDirectTotal; ?>" />
+                                        <?php
+                                        else : ?>
+                                            <label for="turnDirectAvgTotal">Total</label>
+										    <input type="number" min="0" max="300" name="turnDirectAvgTotal" id="turnDirectAvgTotal" value="" />
+                                        <?php
+                                        endif; ?>
 									</div>
 								</div>
 								
@@ -430,15 +495,15 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col">
+										<p>Name: </p>
+										<input class="names" type="text" name="leadingExecName" id="leadingExecName" value="<?php echo $currentData->leadingExecName; ?>" />
+										<br>
 										<p>Gender: </p>
 										<select name="leadingExec" id="leadingExec">
 											<option value="">Please Select</option>
 											<option <?php if ($currentData->leadingExec == 'Man') echo 'selected' ; ?> value="Man">Man</option>
 											<option  <?php if ($currentData->leadingExec == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
 										</select>
-										<br>
-										<p>Name: </p>
-										<input class="names" type="text" name="leadingExecName" id="leadingExecName" value="<?php echo $currentData->leadingExecName; ?>" />
 									</div>
 								</div>
 								
@@ -448,6 +513,9 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col">
+										<p>Name: </p>
+										<input class="names" type="text" name="seniorInfoTechName" id="seniorInfoTechName" value="<?php echo $currentData->seniorInfoTechName; ?>" />
+										<br>
 										<p>Gender: </p>
 										<select name="seniorInfoTech" id="seniorInfoTech">
 											<option value="">Please Select</option>
@@ -455,9 +523,6 @@ $options = get_option('rh_settings');
 											<option  <?php if ($currentData->seniorInfoTech == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
                                             <option <?php if ($currentData->seniorInfoTech == 'No such role exists') echo 'selected' ; ?> value="No such role exists">No such role exists</option>
 										</select>
-										<br>
-										<p>Name: </p>
-										<input class="names" type="text" name="seniorInfoTechName" id="seniorInfoTechName" value="<?php echo $currentData->seniorInfoTechName; ?>" />
 									</div>
 								</div>
 								
@@ -474,6 +539,9 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col">
+										<p>Name: </p>
+										<input class="names" type="text" name="gcSecCombinedName" id="gcSecCombinedName" value="<?php echo $currentData->gcSecCombinedName; ?>" />
+										<br>
 										<p>Gender: </p>
 										<select name="gcSecCombined" id="gcSecCombined">
 											<option value="">Please Select</option>
@@ -481,9 +549,6 @@ $options = get_option('rh_settings');
 											<option <?php if ($currentData->gcSecCombined == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
                                             <option <?php if ($currentData->gcSecCombined == 'No such role exists') echo 'selected' ; ?> value="No such role exists">No such role exists</option>
 										</select>
-										<br>
-										<p>Name: </p>
-										<input class="names" type="text" name="gcSecCombinedName" id="gcSecCombinedName" value="<?php echo $currentData->gcSecCombinedName; ?>" />
 									</div>
 								</div>
 								
@@ -493,6 +558,9 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col">
+										<p>Name: </p>
+										<input class="names" type="text" name="headOfLegalName" id="headOfLegalName" value="<?php echo $currentData->headOfLegalName; ?>" />
+										<br>
 										<p>Gender: </p>
 										<select name="headOfLegal" id="headOfLegal">
 											<option value="">Please Select</option>
@@ -500,9 +568,6 @@ $options = get_option('rh_settings');
 											<option <?php if ($currentData->headOfLegal == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
                                             <option <?php if ($currentData->headOfLegal == 'No such role exists') echo 'selected' ; ?> value="No such role exists">No such role exists</option>
 										</select>
-										<br>
-										<p>Name: </p>
-										<input class="names" type="text" name="headOfLegalName" id="headOfLegalName" value="<?php echo $currentData->headOfLegalName; ?>" />
 									</div>
 									
 									<div class="col col-info" style="padding: 0 0 0 2.1rem;">
@@ -516,6 +581,9 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col">
+										<p>Name: </p>
+										<input class="names" type="text" name="companySecName" id="companySecName" value="<?php echo $currentData->companySecName; ?>" />
+										<br>
 										<p>Gender: </p>
 										<select name="companySec" id="companySec">
 											<option value="">Please Select</option>
@@ -523,9 +591,6 @@ $options = get_option('rh_settings');
 											<option <?php if ($currentData->companySec == 'Woman') echo 'selected' ; ?> value="Woman">Woman</option>
                                             <option <?php if ($currentData->companySec == 'No such role exists') echo 'selected' ; ?> value="No such role exists">No such role exists</option>
 										</select>
-										<br>
-										<p>Name: </p>
-										<input class="names" type="text" name="companySecName" id="companySecName" value="<?php echo $currentData->companySecName; ?>" />
 									</div>
 								</div>
 							</div>
@@ -536,8 +601,11 @@ $options = get_option('rh_settings');
 						
 						<p class="error_msg neg">Total number of Executive Committee members cannot be less than zero</p>
 						<p class="error_msg zero">Please make sure you complete all required fields in Section 1 and 2</p>
-						<p class="error_msg sec3">Please make sure you complete all required fields in Section 3</p>
-						<p class="error_msg 2ab">Please complete <strong>either</strong> 3(a) or 3(b)</p>
+						<p class="error_msg error_1">Please answer Question 1 in Section 3</p>
+						<p class="error_msg error_2">Please answer Question 2 in Section 3</p>
+						<p class="error_msg error_3">Please answer either Question 3a or 3b in Section 3</p>
+						<p class="error_msg error_3a">Please answer Question 3a in Section 3</p>
+						<p class="error_msg error_3b">Please answer Question 3b in Section 3</p>
 						<div class="save-wrap"><input type="submit" name="submitBtn1" value="Save only" class="green-button save" /></div>
 						<div class="submit-wrap">
 							<div class="overlay-two"></div>
@@ -662,13 +730,6 @@ $options = get_option('rh_settings');
 									<div class="col col-info">
 										<h5>
 											<b>Direct Reports to the Executive Committee<br>(excluding administrative support staff)</b>
-<!--
-											<span class="tooltip">i
-												<span class="tooltiptext">
-													Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-												</span>
-											</span>
--->
 										</h5>
 									</div>
 									<div class="col col-num">Men</div>
@@ -774,9 +835,10 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col">
-										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->leadingExec; ?></p>
-										<br>
 										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->leadingExecName; ?></p>
+                                        <br>
+                                        <p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->leadingExec; ?></p>
+										
 									</div>
 								</div>
 								
@@ -786,9 +848,9 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col">
-										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->seniorInfoTech; ?></p>
-										<br>
 										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->seniorInfoTechName; ?></p>
+										<br>
+										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->seniorInfoTech; ?></p>
 									</div>
 								</div>
 								
@@ -804,9 +866,9 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col">
-										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->gcSecCombined; ?></p>
-										<br>
 										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->gcSecCombinedName; ?></p>
+										<br>
+										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->gcSecCombined; ?></p>
 									</div>
 								</div>
 								
@@ -816,9 +878,9 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col">
-										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->headOfLegal; ?></p>
-										<br>
 										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->headOfLegalName; ?></p>
+										<br>
+										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->headOfLegal; ?></p>
 									</div>
 									
 									<div class="col col-info" style="padding: 0 0 0 2.1rem;">
@@ -832,9 +894,9 @@ $options = get_option('rh_settings');
 									</div>
 									
 									<div class="col">
-										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->companySec; ?></p>
-										<br>
 										<p style="display: inline; margin-right: 10px; margin-left: 10px;">Name: <?php echo $allData->companySecName; ?></p>
+										<br>
+										<p style="display: inline; margin-right: 10px;">Gender: <?php echo $allData->companySec; ?></p>
 									</div>
 								</div>
 							</div>

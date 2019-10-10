@@ -399,6 +399,7 @@ input[name="submitBtn2"] {
 
 .wpcf7 .wpcf7-submit, .page_form .wysija-submit {
     background-color: #8ab648;
+    border-color: #8ab648;
     color: #fff;
     font-weight: bold;
     margin: 0;
@@ -406,6 +407,10 @@ input[name="submitBtn2"] {
     width: 100%;
 	font-size: 14px !important;
     line-height: 1;
+}
+
+.wpcf7 .wpcf7-submit:hover, .page_form .wysija-submit:hover {
+    color: #8ab648;
 }
 
 .wpcf7 p, .page_form label, .page_form label span {
@@ -914,6 +919,11 @@ p.description {
 	z-index: 10;
 }
 
+.row .col-num p {
+    text-align: left;
+    padding-left: 11px;
+}
+
 .row-1 .col-num:last-child:before {
 	content: '';
     background: url(../img/dot-bg.png) repeat 0 0;
@@ -947,6 +957,10 @@ p.description {
 	width: 50%;
 }
 
+.locked .section.three .row .col {
+	width: auto;
+}
+
 .section.three .row .col:nth-child(2) {
 	text-align: right;
 }
@@ -973,8 +987,12 @@ p.description {
 
 .section.three .row .col:nth-child(2) input {
 	padding: 6px 10px;
-	width: 120px;
+	width: 90px;
 	margin: 0 0 0 10px;
+}
+
+.section.three p {
+	margin-left: 10px !important;
 }
 
 .data-columns .row-5 {

@@ -96,6 +96,16 @@
 						<input type="text" name="job_title" id="position" placeholder="<?php _e( 'Position/Job Title', 'ftse-data-capture' ); ?>">
 						<span class="error_msg"></span>
 					</p>
+
+					<p class="form-row">
+						<label for="sec_name"><?php _e( 'Secondary Contact Name', 'ftse-data-capture' ); ?></label>
+						<input type="text" name="sec_name" id="sec_name" class="optional" placeholder="<?php _e( 'Secondary Contact Name', 'ftse-data-capture' ); ?>">
+					</p>
+
+					<p class="form-row">
+						<label for="sec_email"><?php _e( 'Secondary Contact Email', 'ftse-data-capture' ); ?></label>
+						<input type="text" name="sec_email" id="sec_email" class="optional" placeholder="<?php _e( 'Secondary Contact Email', 'ftse-data-capture' ); ?>">
+					</p>
 					
 					<p class="form-row checkbox">
 						<input type="checkbox" id="disclaimer" name="disclaimer" />
